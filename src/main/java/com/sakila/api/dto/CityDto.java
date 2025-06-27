@@ -1,6 +1,6 @@
 package com.sakila.api.dto;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import lombok.Data;
 
