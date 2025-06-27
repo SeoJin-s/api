@@ -23,6 +23,29 @@ public class CityService {
       this.countryRepository = countryRepository;
    }
    
+	// 수정
+	public void update(CityDto cityDto) {
+	    CityEntity city = cityRepository.findById(cityDto.getCityId())
+	        .orElseThrow(() -> new IllegalArgumentException("해당 도시 없음"));
+	
+	    city.setCity(cityDto.getCity());
+	
+	    CountryEntity country = countryRepository.findById(cityDto.getCountryId())
+	        .orElseThrow(() -> new IllegalArgumentException("해당 국가 없음"));
+	
+	    city.setCountryEntity(country);
+	    cityRepository.save(city);
+	}
+	
+	// 삭제
+	public boolean delete(int cityId) {
+	    if (cityRepository.existsById(cityId)) {
+	        cityRepository.deleteById(cityId);
+	        return true;
+	    }
+	    return false;
+	}
+   
    // 입력
    public void save(CityDto cityDto) {
 	   CityEntity saveCityEntity = new CityEntity();
