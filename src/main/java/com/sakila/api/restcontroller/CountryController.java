@@ -26,6 +26,18 @@ public class CountryController {
       this.countryService = countryService;
    }
    
+   // 단일 조회
+   @GetMapping("/country/{countryId}")
+   public ResponseEntity<List<CountryEntity>> countryOne(@PathVariable int countryId) {
+	    return new ResponseEntity<>(List.of(countryService.findById(countryId)), HttpStatus.OK);
+	}
+   
+   // 조회
+   @GetMapping("/country")
+   public ResponseEntity<List<CountryEntity>> country() {
+	   return new ResponseEntity<List<CountryEntity>>(countryService.findAll(), HttpStatus.OK);
+	   }
+   
    // 삭제
    @DeleteMapping("/country/{countryId}")
    public ResponseEntity<String> deleteCountry(@PathVariable int countryId) {
@@ -44,7 +56,7 @@ public class CountryController {
 	   return new ResponseEntity<String>("수정성공", HttpStatus.OK);
    }
    
-   
+   // 등록
    @PostMapping("/country")
    public ResponseEntity<String> country(@RequestBody CountryDto countryDto) {
 	   // json -> CountryDto로 자동 매핑됨
@@ -58,9 +70,5 @@ public class CountryController {
    // @RequestBody: 클라이언트에서 보낸 JSON 바디를 Java 객체로 변환
    // @ResponseBody: Java 객체를 JSON으로 응답할 때 사용 (지금처럼 @RestController면 자동 포함됨이라 필요 없음)
    
-   
-   @GetMapping("/country")
-   public ResponseEntity<List<CountryEntity>> country() {
-      return new ResponseEntity<List<CountryEntity>>(countryService.findAll(), HttpStatus.OK);
-   }
+  
 }

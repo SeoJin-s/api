@@ -22,6 +22,12 @@ public class CountryService {
       this.cityRepository = cityRepository;
    }
    
+   // 한행 조회
+   public CountryEntity findById(int countryId) {
+	   return countryRepository.findById(countryId).orElse(null);
+   }
+   
+   // 전체 조회
    public List<CountryEntity> findAll() {
       return countryRepository.findAll();
    }
