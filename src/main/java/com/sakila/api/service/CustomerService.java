@@ -2,12 +2,17 @@ package com.sakila.api.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sakila.api.dto.CustomerDto;
 import com.sakila.api.entity.AddressEntity;
+
 import com.sakila.api.entity.CustomerEntity;
+import com.sakila.api.entity.CustomerMapping;
 import com.sakila.api.entity.StoreEntity;
 import com.sakila.api.repository.AddressRepository;
 import com.sakila.api.repository.CustomerRepository;
@@ -32,9 +37,14 @@ public class CustomerService {
 	}
 
 	// 전체 조회
-	public List<CustomerEntity> findAll() {
-		return customerRepository.findAll();
-	}
+	public Page<CustomerMapping> findAll(int currentPage) {
+		  int pageSize = 10;
+		  int pageNumber = currentPage - 1;
+		  
+		  Sort sort = Sort.by("customerId").ascending();
+		  PageRequest pageable = PageRequest.of(pageNumber, pageSize, sort);
+	      return customerRepository.findAllBy(pageable);
+	   }
 
 	// 등록
 	public void save(CustomerDto customerDto) {

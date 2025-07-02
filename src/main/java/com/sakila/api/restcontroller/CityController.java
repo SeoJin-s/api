@@ -2,12 +2,14 @@ package com.sakila.api.restcontroller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.sakila.api.dto.CityDto;
 import com.sakila.api.entity.CityEntity;
+import com.sakila.api.entity.CityMapping;
 import com.sakila.api.service.CityService;
 
 @RestController
@@ -19,9 +21,9 @@ public class CityController {
    }
 
    //  전체 조회
-   @GetMapping("/city")
-   public ResponseEntity<List<CityEntity>> city() {
-      return new ResponseEntity<>(cityService.findAll(), HttpStatus.OK);
+   @GetMapping("/cityList/{currentPage}")
+   public ResponseEntity<Page<CityMapping>> city(@PathVariable int currentPage) {
+	   return new ResponseEntity<>(cityService.findAll(currentPage), HttpStatus.OK);
    }
 
    // 입력
