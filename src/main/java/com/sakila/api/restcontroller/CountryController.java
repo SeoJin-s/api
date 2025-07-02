@@ -2,8 +2,10 @@ package com.sakila.api.restcontroller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sakila.api.dto.CountryDto;
 import com.sakila.api.entity.CountryEntity;
+import com.sakila.api.entity.CountryMapping;
 import com.sakila.api.service.CountryService;
 
 @RestController
+@CrossOrigin
 public class CountryController {
    private CountryService countryService;
    
@@ -27,15 +31,15 @@ public class CountryController {
    }
    
    // 단일 조회
-   @GetMapping("/country/{countryId}")
+   @GetMapping("/countryOne/{countryId}")
    public ResponseEntity<List<CountryEntity>> countryOne(@PathVariable int countryId) {
 	    return new ResponseEntity<>(List.of(countryService.findById(countryId)), HttpStatus.OK);
 	}
    
-   // 조회
-   @GetMapping("/country")
-   public ResponseEntity<List<CountryEntity>> country() {
-	   return new ResponseEntity<List<CountryEntity>>(countryService.findAll(), HttpStatus.OK);
+   // 전체조회
+   @GetMapping("/countryList/{currentPage}")
+   public ResponseEntity<Page<CountryMapping>> country(@PathVariable int currentPage) {
+	   return new ResponseEntity<Page<CountryMapping>>(countryService.findAll(currentPage), HttpStatus.OK);
 	   }
    
    // 삭제
