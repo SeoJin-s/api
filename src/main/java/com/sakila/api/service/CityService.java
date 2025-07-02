@@ -73,4 +73,9 @@ public class CityService {
 		  PageRequest pageable = PageRequest.of(pageNumber, pageSize, sort);
 	      return cityRepository.findAllBy(pageable);
 	   }
+   
+   // 한행 조회
+   public CityEntity findById(int cityId) {
+	   return cityRepository.findById(cityId).orElse(null);
+   }
 }

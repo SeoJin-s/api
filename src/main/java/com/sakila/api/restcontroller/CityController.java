@@ -10,14 +10,22 @@ import org.springframework.web.bind.annotation.*;
 import com.sakila.api.dto.CityDto;
 import com.sakila.api.entity.CityEntity;
 import com.sakila.api.entity.CityMapping;
+import com.sakila.api.entity.CountryEntity;
 import com.sakila.api.service.CityService;
 
 @RestController
+@CrossOrigin
 public class CityController {
    private final CityService cityService;
 
    public CityController(CityService cityService) {
       this.cityService = cityService;
+   }
+   
+   // 단일조회
+   @GetMapping("/cityOne/{cityId}")
+   public ResponseEntity<CityEntity> cityOne(@PathVariable int cityId) {
+       return new ResponseEntity<>(cityService.findById(cityId), HttpStatus.OK);
    }
 
    //  전체 조회

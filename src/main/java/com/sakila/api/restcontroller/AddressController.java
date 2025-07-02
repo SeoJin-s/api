@@ -14,6 +14,7 @@ import com.sakila.api.entity.CountryMapping;
 import com.sakila.api.service.AddressService;
 
 @RestController
+@CrossOrigin
 public class AddressController {
     private final AddressService addressService;
 

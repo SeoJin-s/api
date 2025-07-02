@@ -14,6 +14,7 @@ import com.sakila.api.entity.CustomerMapping;
 import com.sakila.api.service.CustomerService;
 
 @RestController
+@CrossOrigin
 public class CustomerController {
 
     private final CustomerService customerService;
